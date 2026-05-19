@@ -63,18 +63,20 @@ const STATS = [
   },
 ];
 
+const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
+
 const fadeUp = {
   hidden: { opacity: 0, y: 28 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.09, duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+    transition: { delay: i * 0.09, duration: 0.65, ease: EASE },
   }),
 };
 
 export default function WhySlide(_props: SlideProps) {
   return (
-    <div className="slide-wrapper bg-[#060606] flex flex-col items-center justify-center px-6 md:pl-20 overflow-y-auto">
+    <div className="slide-wrapper-scroll bg-[#060606] flex flex-col items-center justify-center px-6 md:pl-20">
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_110%,rgba(10,18,45,0.55),transparent)]" />
       <div

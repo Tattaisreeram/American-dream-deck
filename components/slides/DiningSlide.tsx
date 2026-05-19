@@ -58,7 +58,7 @@ const ACCENT = "#e8904a";
 
 export default function DiningSlide(_props: SlideProps) {
   return (
-    <div className="slide-wrapper bg-[#060602] flex flex-col overflow-hidden">
+    <div className="slide-wrapper-scroll bg-[#060602] flex flex-col">
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_100%_50%,rgba(232,144,74,0.05),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_100%,rgba(201,168,76,0.04),transparent)]" />

@@ -77,13 +77,23 @@ body {
   opacity: 0.4;
 }
 
-/* Full-screen slide wrapper */
+/* Full-screen slide wrapper — #deck-root already clips overflow */
 .slide-wrapper {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   overflow: hidden;
+}
+
+/* Scrollable variant — for content-heavy slides */
+.slide-wrapper-scroll {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 /* Gold shimmer animation */

@@ -1,5 +1,5 @@
-import DeckController from "@/components/DeckController";
+import DeckLoader from "@/components/DeckLoader";
 
 export default function Home() {
-  return <DeckController />;
+  return <DeckLoader />;
 }
