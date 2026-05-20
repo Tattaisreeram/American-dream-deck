@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Waves, Star, Fish, Ticket, Zap } from "lucide-react";
-import type { SlideProps } from "@/types/slides";
 
 const ATTRACTIONS = [
   {
@@ -57,7 +56,7 @@ const ATTRACTIONS = [
 
 const ACCENT = "#9b59b6";
 
-export default function EntertainmentSlide(_props: SlideProps) {
+export default function EntertainmentSlide() {
   return (
     <div className="slide-wrapper bg-[#050510] flex flex-col md:flex-row overflow-hidden">
       {/* Background */}
@@ -158,7 +157,7 @@ export default function EntertainmentSlide(_props: SlideProps) {
                 <div className="text-base font-bold text-white mb-0.5 leading-snug">
                   {attr.name}
                 </div>
-                <div className="text-[10px] text-white/28 mb-2 leading-snug">
+                <div className="text-[10px] text-white/40 mb-2 leading-snug">
                   {attr.sub}
                 </div>
                 <div
@@ -167,7 +166,7 @@ export default function EntertainmentSlide(_props: SlideProps) {
                 >
                   {attr.stat}
                 </div>
-                <div className="text-[10px] text-white/22 mt-1 leading-snug">
+                <div className="text-[10px] text-white/35 mt-1 leading-snug">
                   {attr.detail}
                 </div>
               </motion.div>

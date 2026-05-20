@@ -98,7 +98,9 @@ export default function HeroSlide({ onEnter }: SlideProps) {
         >
           <button
             onClick={onEnter}
-            className="group relative inline-flex items-center gap-4 px-10 py-4 border border-[#c9a84c]/35 text-[#c9a84c] text-[11px] tracking-[0.4em] uppercase hover:bg-[#c9a84c]/08 transition-all duration-500"
+            className="group relative inline-flex items-center gap-4 px-10 py-4 border border-[#c9a84c]/35 text-[#c9a84c] text-[11px] tracking-[0.4em] uppercase transition-all duration-500"
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(201,168,76,0.08)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
           >
             <span>Enter Presentation</span>
             <motion.span

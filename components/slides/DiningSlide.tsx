@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { Utensils, Coffee, Wine, ChefHat, ArrowRight } from "lucide-react";
-import type { SlideProps } from "@/types/slides";
 
 const CATEGORIES = [
   {
@@ -56,7 +55,7 @@ const FEATURED = [
 
 const ACCENT = "#e8904a";
 
-export default function DiningSlide(_props: SlideProps) {
+export default function DiningSlide() {
   return (
     <div className="slide-wrapper-scroll bg-[#060602] flex flex-col">
       {/* Background */}
@@ -67,7 +66,7 @@ export default function DiningSlide(_props: SlideProps) {
       <motion.div
         initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
-        className="relative z-10 px-8 md:pl-20 pt-16 pb-4 flex-none"
+        className="relative z-10 px-8 md:pl-20 pt-8 pb-4 flex-none"
       >
         <div
           className="text-[9px] tracking-[0.55em] uppercase mb-3 font-medium"
@@ -103,7 +102,7 @@ export default function DiningSlide(_props: SlideProps) {
             >
               {s.n}
             </div>
-            <div className="text-[10px] text-white/28 uppercase tracking-widest mt-0.5">
+            <div className="text-[10px] text-white/40 uppercase tracking-widest mt-0.5">
               {s.l}
             </div>
           </div>
@@ -129,7 +128,7 @@ export default function DiningSlide(_props: SlideProps) {
               <div className="text-sm font-semibold text-white/70">
                 {cat.title}
               </div>
-              <div className="text-[11px] text-white/28">{cat.sub}</div>
+              <div className="text-[11px] text-white/40">{cat.sub}</div>
             </motion.div>
           );
         })}
@@ -137,7 +136,7 @@ export default function DiningSlide(_props: SlideProps) {
 
       {/* Featured tenants */}
       <div className="relative z-10 px-8 md:pl-20 flex-1 min-h-0">
-        <div className="text-[9px] tracking-[0.45em] text-white/22 uppercase mb-3">
+        <div className="text-[9px] tracking-[0.45em] text-white/35 uppercase mb-3">
           Featured Tenants
         </div>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">

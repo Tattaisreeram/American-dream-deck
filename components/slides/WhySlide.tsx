@@ -8,9 +8,9 @@ import {
   MapPin,
   TrendingUp,
   Award,
+  ArrowRight,
 } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
-import type { SlideProps } from "@/types/slides";
 
 const STATS = [
   {
@@ -34,15 +34,15 @@ const STATS = [
     value: 450,
     suffix: "+",
     label: "Retailers & Experiences",
-    desc: "From luxury flagships to one-of-a-kind concepts",
+    desc: "From luxury flagships to one-of-a-kind activations",
     color: "#e8c4d0",
   },
   {
     icon: MapPin,
     value: 16,
     suffix: "M",
-    label: "People Within 1-Hour Drive",
-    desc: "Serving the world's most valuable consumer market",
+    label: "People Within 1-Hr Drive",
+    desc: "The world's most valuable consumer catchment",
     color: "#e8904a",
   },
   {
@@ -50,7 +50,7 @@ const STATS = [
     value: 9,
     suffix: "+",
     label: "Unique Attractions",
-    desc: "America's only indoor ski slope, water park, and theme park",
+    desc: "America's only indoor ski, water park & theme park",
     color: "#9b59b6",
   },
   {
@@ -58,7 +58,7 @@ const STATS = [
     value: 1,
     suffix: "",
     label: "#1 Tourist Destination in NJ",
-    desc: "Surpassing every state landmark in annual visit count",
+    desc: "Surpassing every state landmark in annual visits",
     color: "#2ecc71",
   },
 ];
@@ -66,21 +66,21 @@ const STATS = [
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.09, duration: 0.65, ease: EASE },
+    transition: { delay: i * 0.08, duration: 0.6, ease: EASE },
   }),
 };
 
-export default function WhySlide(_props: SlideProps) {
+export default function WhySlide() {
   return (
-    <div className="slide-wrapper-scroll bg-[#060606] flex flex-col items-center justify-center px-6 md:pl-20">
+    <div className="slide-wrapper bg-[#060606] flex flex-col md:flex-row overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_110%,rgba(10,18,45,0.55),transparent)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_80%_at_0%_100%,rgba(10,18,45,0.5),transparent)]" />
       <div
-        className="absolute inset-0 opacity-[0.022]"
+        className="absolute inset-0 opacity-[0.018]"
         style={{
           backgroundImage:
             "radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1px)",
@@ -88,80 +88,107 @@ export default function WhySlide(_props: SlideProps) {
         }}
       />
 
-      {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: -18 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-        className="text-center mb-10 relative z-10 pt-14"
-      >
-        <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-3">
-          The Opportunity
-        </div>
-        <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-3">
-          Why American Dream?
-        </h2>
-        <p className="text-white/40 text-base max-w-lg mx-auto">
-          One address. Incomparable scale. The most valuable consumer audience
-          on the planet.
-        </p>
-      </motion.div>
+      {/* Left — narrative anchor */}
+      <div className="relative md:w-[38%] flex-none flex flex-col justify-center px-8 md:pl-16 lg:pl-20 py-12">
+        <motion.div
+          initial={{ opacity: 0, x: -28 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.75, ease: EASE }}
+        >
+          <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-4 font-medium">
+            The Opportunity
+          </div>
+          <h2
+            className="font-black text-white leading-[0.92] tracking-tight mb-5"
+            style={{ fontSize: "clamp(2.6rem, 5.5vw, 4rem)" }}
+          >
+            Why
+            <br />
+            American
+            <br />
+            Dream?
+          </h2>
+          <p className="text-white/45 text-[13px] leading-relaxed mb-8 max-w-xs">
+            One address. Incomparable scale. The most valuable consumer audience
+            in the world.
+          </p>
 
-      {/* Stats grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-5xl w-full relative z-10">
-        {STATS.map((stat, i) => {
-          const Icon = stat.icon;
-          return (
-            <motion.div
-              key={stat.label}
-              custom={i}
-              variants={fadeUp}
-              initial="hidden"
-              animate="show"
-              className="glass-card rounded-xl p-5 md:p-6"
+          {/* Hero stat */}
+          <div className="mb-8 pl-4 border-l border-[#c9a84c]/25">
+            <div
+              className="font-black tabular-nums leading-none mb-1"
+              style={{ fontSize: "clamp(2.5rem, 6vw, 4rem)", color: "#c9a84c" }}
             >
-              <Icon
-                size={15}
-                className="mb-3 opacity-75"
-                style={{ color: stat.color }}
-              />
-              <div
-                className="text-3xl md:text-4xl font-black text-white mb-1"
-              >
-                <AnimatedCounter
-                  to={stat.value}
-                  suffix={stat.suffix}
-                  duration={2.4}
-                />
-              </div>
-              <div className="text-sm font-semibold text-white/75 mb-1.5">
-                {stat.label}
-              </div>
-              <div className="text-[11px] text-white/30 leading-relaxed">
-                {stat.desc}
-              </div>
-            </motion.div>
-          );
-        })}
+              40M+
+            </div>
+            <div className="text-[11px] text-white/45 uppercase tracking-widest">
+              Annual visitors
+            </div>
+          </div>
+
+          {/* Location pill */}
+          <div className="flex items-center gap-2 mb-8">
+            <MapPin size={11} className="text-[#c9a84c] flex-none" />
+            <span className="text-[12px] text-white/45">
+              East Rutherford, NJ ·{" "}
+              <span className="text-white/65 font-medium">
+                10 min from Manhattan
+              </span>
+            </span>
+          </div>
+
+          <button
+            className="inline-flex items-center gap-3 px-6 py-2.5 border border-[#c9a84c]/30 text-[#c9a84c] text-[10px] tracking-[0.3em] uppercase rounded-sm transition-colors"
+            onMouseEnter={(e) =>
+              (e.currentTarget.style.background = "rgba(201,168,76,0.08)")
+            }
+            onMouseLeave={(e) =>
+              (e.currentTarget.style.background = "transparent")
+            }
+          >
+            View Full Market Analysis
+            <ArrowRight size={11} />
+          </button>
+        </motion.div>
       </div>
 
-      {/* Location pill */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.8, duration: 0.8 }}
-        className="mt-7 mb-6 relative z-10"
-      >
-        <div className="inline-flex items-center gap-2.5 px-5 py-2.5 border border-[#c9a84c]/18 rounded-full">
-          <MapPin size={11} className="text-[#c9a84c]" />
-          <span className="text-sm text-white/50">
-            East Rutherford, NJ ·{" "}
-            <span className="text-white/75 font-medium">
-              10 miles from Midtown Manhattan
-            </span>
-          </span>
+      {/* Right — stats grid */}
+      <div className="flex-1 flex items-center justify-center px-6 py-10 overflow-y-auto">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 max-w-2xl w-full">
+          {STATS.map((stat, i) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={stat.label}
+                custom={i}
+                variants={fadeUp}
+                initial="hidden"
+                animate="show"
+                className="glass-card rounded-xl p-4 md:p-5"
+              >
+                <Icon
+                  size={14}
+                  className="mb-3 opacity-70"
+                  style={{ color: stat.color }}
+                />
+                <div className="text-2xl md:text-3xl font-black text-white mb-1 tabular-nums">
+                  <AnimatedCounter
+                    to={stat.value}
+                    suffix={stat.suffix}
+                    duration={2.2}
+                  />
+                </div>
+                <div className="text-[12px] font-semibold text-white/75 mb-1.5 leading-snug">
+                  {stat.label}
+                </div>
+                <div className="text-[10px] text-white/40 leading-relaxed">
+                  {stat.desc}
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

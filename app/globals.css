@@ -11,6 +11,7 @@
   --accent-gold-dim: rgba(201, 168, 76, 0.15);
   --accent-glow: rgba(201, 168, 76, 0.4);
   --slide-transition: 0.7s cubic-bezier(0.76, 0, 0.24, 1);
+  --nav-h: 3.5rem; /* 56px — keep in sync with Navigation h-14 */
 }
 
 * {
@@ -21,7 +22,7 @@
 
 html,
 body {
-  height: 100%;
+  height: 100dvh;
   width: 100%;
   overflow: hidden;
   background: var(--bg-primary);
@@ -30,6 +31,24 @@ body {
     "Segoe UI", system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Hide native cursor on desktop so CustomCursor takes over */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
 }
 
 /* Scrollbar styling for horizontal galleries */
@@ -55,6 +74,11 @@ body {
   border: 1px solid var(--border-subtle);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.14);
 }
 
 /* Subtle noise texture overlay */
@@ -86,12 +110,14 @@ body {
   overflow: hidden;
 }
 
-/* Scrollable variant — for content-heavy slides */
+/* Scrollable variant — starts below the fixed nav bar so content never
+   scrolls behind it */
 .slide-wrapper-scroll {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  bottom: 0;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -127,5 +153,6 @@ body {
 #deck-root {
   position: fixed;
   inset: 0;
+  height: 100dvh;
   overflow: hidden;
 }

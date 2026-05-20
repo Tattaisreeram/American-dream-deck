@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import type { SlideProps } from "@/types/slides";
 
 const METRICS = [
   { value: "62%", label: "of Avenue shoppers earn $150K+" },
@@ -33,7 +32,7 @@ const DIFFERENTIATORS = [
   "On-site personal styling & alterations",
 ];
 
-export default function LuxurySlide(_props: SlideProps) {
+export default function LuxurySlide() {
   return (
     <div className="slide-wrapper bg-[#050505] flex flex-col md:flex-row overflow-hidden">
       {/* Left — visual panel */}
@@ -48,10 +47,10 @@ export default function LuxurySlide(_props: SlideProps) {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_30%_50%,rgba(201,168,76,0.11),transparent)]" />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_50%_at_75%_25%,rgba(180,130,50,0.07),transparent)]" />
 
-        {/* Vertical decorative lines */}
-        {[...Array(7)].map((_, i) => (
+        {/* Vertical decorative lines — positions in % from left */}
+        {([8, 21, 34, 47, 60, 73, 86] as const).map((left, i) => (
           <motion.div
-            key={i}
+            key={`deco-${left}`}
             animate={{
               opacity: [0.03, 0.09, 0.03],
               scaleY: [1, 1.08, 1],
@@ -64,7 +63,7 @@ export default function LuxurySlide(_props: SlideProps) {
             }}
             className="absolute w-px bg-gradient-to-b from-transparent via-[#c9a84c]/25 to-transparent"
             style={{
-              left: `${8 + i * 13}%`,
+              left: `${left}%`,
               top: "8%",
               height: "84%",
             }}
@@ -95,7 +94,7 @@ export default function LuxurySlide(_props: SlideProps) {
               AVENUE
             </div>
             <div className="mt-6 w-14 h-px bg-[#c9a84c]/35 mx-auto" />
-            <p className="mt-5 text-[11px] text-white/25 tracking-[0.18em] max-w-[200px] mx-auto leading-relaxed">
+            <p className="mt-5 text-[11px] text-white/38 tracking-[0.18em] max-w-[200px] mx-auto leading-relaxed">
               Luxury's new North American address
             </p>
           </motion.div>
@@ -150,7 +149,7 @@ export default function LuxurySlide(_props: SlideProps) {
 
           {/* Differentiators */}
           <div className="mb-8">
-            <div className="text-[9px] tracking-[0.45em] text-white/22 uppercase mb-3">
+            <div className="text-[9px] tracking-[0.45em] text-white/35 uppercase mb-3">
               Avenue Amenities
             </div>
             <div className="flex flex-col gap-2">
@@ -171,7 +170,7 @@ export default function LuxurySlide(_props: SlideProps) {
 
           {/* Current tenants */}
           <div className="mb-8">
-            <div className="text-[9px] tracking-[0.45em] text-white/22 uppercase mb-3">
+            <div className="text-[9px] tracking-[0.45em] text-white/35 uppercase mb-3">
               Current & Pipeline Tenants
             </div>
             <div className="flex flex-wrap gap-1.5">

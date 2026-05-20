@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -12,10 +12,37 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const DESCRIPTION =
+  "The world's most dynamic mixed-use destination. Retail leasing, entertainment sponsorships, and world-class event venues — all under one roof in the New York metro.";
+
 export const metadata: Metadata = {
-  title: "American Dream — B2B Sales Deck",
-  description:
-    "The world's most dynamic mixed-use destination. Retail leasing, entertainment sponsorships, and world-class event venues.",
+  metadataBase: new URL("https://american-dream-deck.vercel.app"),
+  title: "American Dream — Partner Presentation",
+  description: DESCRIPTION,
+  openGraph: {
+    title: "American Dream — Partner Presentation",
+    description: DESCRIPTION,
+    type: "website",
+    images: [
+      {
+        url: "/og.png",
+        width: 1200,
+        height: 630,
+        alt: "American Dream — Partner Presentation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "American Dream — Partner Presentation",
+    description: DESCRIPTION,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#080808",
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({
@@ -26,9 +53,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} antialiased`}
     >
-      <body className="h-full overflow-hidden bg-[#080808] text-[#f5f5f5]">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }

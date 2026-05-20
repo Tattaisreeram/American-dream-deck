@@ -102,7 +102,7 @@ export default function HubSlide({ goTo }: SlideProps) {
         <h2 className="text-3xl md:text-5xl font-black tracking-tight text-white">
           Select a Chapter
         </h2>
-        <p className="text-white/30 text-sm mt-2 tracking-wide">
+        <p className="text-white/45 text-sm mt-2 tracking-wide">
           Navigate non-linearly — jump to any section
         </p>
       </motion.div>
@@ -151,7 +151,7 @@ export default function HubSlide({ goTo }: SlideProps) {
                 <h3 className="text-base md:text-lg font-bold text-white mb-1 leading-snug">
                   {ch.title}
                 </h3>
-                <p className="text-[11px] text-white/35">{ch.sub}</p>
+                <p className="text-[11px] text-white/45">{ch.sub}</p>
               </div>
 
               {/* Arrow reveal */}
