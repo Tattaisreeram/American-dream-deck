@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { SLIDES } from "@/lib/slides-config";
+import { EASE_OUT } from "@/lib/motion";
 
 interface Props {
   current: number;
@@ -10,7 +11,6 @@ interface Props {
 }
 
 const NAV_ITEMS = SLIDES.slice(1);
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Navigation({ current, goTo }: Props) {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -25,7 +25,7 @@ export default function Navigation({ current, goTo }: Props) {
           className="h-full"
           style={{ background: "linear-gradient(90deg, #c9a84c, #f0d485)" }}
           animate={{ width: `${Math.max(progress, 0)}%` }}
-          transition={{ duration: 0.55, ease: EASE }}
+          transition={{ duration: 0.55, ease: EASE_OUT }}
         />
       </div>
 
@@ -33,7 +33,7 @@ export default function Navigation({ current, goTo }: Props) {
       <motion.nav
         initial={{ y: -56, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, ease: EASE }}
+        transition={{ duration: 0.5, ease: EASE_OUT }}
         className="fixed top-px left-0 right-0 z-50 flex items-center justify-between px-6 h-14"
         style={{
           background: "rgba(8,8,8,0.92)",

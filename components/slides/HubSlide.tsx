@@ -10,6 +10,8 @@ import {
   Calendar,
 } from "lucide-react";
 import type { SlideProps } from "@/types/slides";
+import { SLIDE_COLORS } from "@/lib/theme";
+import { EASE_OUT } from "@/lib/motion";
 
 const CHAPTERS = [
   {
@@ -18,8 +20,7 @@ const CHAPTERS = [
     num: "01",
     title: "Why American Dream",
     sub: "Scale. Location. Momentum.",
-    color: "#4a90d9",
-    bg: "rgba(74,144,217,0.07)",
+    color: SLIDE_COLORS.why,
   },
   {
     idx: 3,
@@ -27,8 +28,7 @@ const CHAPTERS = [
     num: "02",
     title: "Retail Leasing",
     sub: "Prime spaces. Premium traffic.",
-    color: "#c9a84c",
-    bg: "rgba(201,168,76,0.07)",
+    color: SLIDE_COLORS.retail,
   },
   {
     idx: 4,
@@ -36,8 +36,7 @@ const CHAPTERS = [
     num: "03",
     title: "The Avenue",
     sub: "Luxury's new frontier.",
-    color: "#e8c4d0",
-    bg: "rgba(232,196,208,0.06)",
+    color: SLIDE_COLORS.luxury,
   },
   {
     idx: 5,
@@ -45,8 +44,7 @@ const CHAPTERS = [
     num: "04",
     title: "Dining & Lifestyle",
     sub: "150+ culinary experiences.",
-    color: "#e8904a",
-    bg: "rgba(232,144,74,0.07)",
+    color: SLIDE_COLORS.dining,
   },
   {
     idx: 6,
@@ -54,8 +52,7 @@ const CHAPTERS = [
     num: "05",
     title: "Entertainment",
     sub: "9 world-class attractions.",
-    color: "#9b59b6",
-    bg: "rgba(155,89,182,0.07)",
+    color: SLIDE_COLORS.entertainment,
   },
   {
     idx: 7,
@@ -63,12 +60,9 @@ const CHAPTERS = [
     num: "06",
     title: "Events & Venues",
     sub: "Your stage. Global scale.",
-    color: "#2ecc71",
-    bg: "rgba(46,204,113,0.07)",
+    color: SLIDE_COLORS.events,
   },
 ];
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const container = {
   hidden: {},
@@ -79,7 +73,7 @@ const item = {
   show: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.55, ease: EASE },
+    transition: { duration: 0.55, ease: EASE_OUT },
   },
 };
 
@@ -93,7 +87,7 @@ export default function HubSlide({ goTo }: SlideProps) {
       <motion.div
         initial={{ opacity: 0, y: -18 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.7, ease: EASE_OUT }}
         className="text-center mb-10 relative z-10"
       >
         <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-3">
@@ -120,7 +114,7 @@ export default function HubSlide({ goTo }: SlideProps) {
             <motion.button
               key={ch.idx}
               variants={item}
-              onClick={() => goTo?.(ch.idx)}
+              onClick={() => goTo(ch.idx)}
               className="group relative glass-card rounded-2xl p-5 text-left hover:border-white/15 transition-all duration-400 overflow-hidden"
               whileHover={{ scale: 1.025, y: -3 }}
               whileTap={{ scale: 0.99 }}
@@ -137,7 +131,7 @@ export default function HubSlide({ goTo }: SlideProps) {
                 <div className="flex items-start justify-between mb-4">
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center"
-                    style={{ background: ch.bg }}
+                    style={{ background: `${ch.color}12` }}
                   >
                     <Icon size={16} style={{ color: ch.color }} />
                   </div>

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import type { SlideProps } from "@/types/slides";
+import { EASE_OUT } from "@/lib/motion";
 
 export default function HeroSlide({ onEnter }: SlideProps) {
   const [ready, setReady] = useState(false);
@@ -70,7 +71,7 @@ export default function HeroSlide({ onEnter }: SlideProps) {
         <motion.h1
           initial={{ opacity: 0, y: 48 }}
           animate={{ opacity: ready ? 1 : 0, y: ready ? 0 : 48 }}
-          transition={{ delay: 0.42, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ delay: 0.42, duration: 1, ease: EASE_OUT }}
           className="font-black leading-none tracking-[-0.03em] text-white mb-5"
           style={{ fontSize: "clamp(4.5rem, 13vw, 11rem)" }}
         >

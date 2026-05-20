@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { EASE_OUT } from "@/lib/motion";
 
 const METRICS = [
   { value: "62%", label: "of Avenue shoppers earn $150K+" },
@@ -75,7 +76,7 @@ export default function LuxurySlide() {
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ delay: 0.3, duration: 1, ease: EASE_OUT }}
             className="text-center"
           >
             <div className="text-[9px] tracking-[0.65em] text-[#c9a84c]/50 uppercase mb-5">
@@ -106,7 +107,7 @@ export default function LuxurySlide() {
         <motion.div
           initial={{ opacity: 0, x: 36 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
         >
           <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-3">
             Luxury Wing
@@ -133,7 +134,7 @@ export default function LuxurySlide() {
                 transition={{
                   delay: 0.2 + i * 0.09,
                   duration: 0.6,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE_OUT,
                 }}
                 className="glass-card rounded-xl p-4"
               >
@@ -188,7 +189,11 @@ export default function LuxurySlide() {
             </div>
           </div>
 
-          <button className="inline-flex items-center gap-3 px-8 py-3 border border-[#c9a84c]/35 text-[#c9a84c] text-[11px] tracking-[0.3em] uppercase hover:bg-[#c9a84c]/08 transition-colors rounded-sm">
+          <button
+            className="inline-flex items-center gap-3 px-8 py-3 border border-[#c9a84c]/35 text-[#c9a84c] text-[11px] tracking-[0.3em] uppercase transition-colors rounded-sm"
+            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(201,168,76,0.08)")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+          >
             View Avenue Availability
             <ArrowRight size={13} />
           </button>

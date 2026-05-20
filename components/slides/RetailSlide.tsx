@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, X, MapPin, Gem, Zap, Utensils, Users, Snowflake } from "lucide-react";
+import { EASE_OUT } from "@/lib/motion";
 
 interface SpaceDemo {
   medianIncome: string;
@@ -26,7 +27,6 @@ interface RetailSpace {
   desc: string;
 }
 
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const SPACES: RetailSpace[] = [
   {
@@ -112,7 +112,7 @@ export default function RetailSlide() {
   const [selected, setSelected] = useState<RetailSpace | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
-  const closeModal = () => setSelected(null);
+  const closeModal = useCallback(() => setSelected(null), []);
 
   // Escape to close + focus the close button when modal opens
   useEffect(() => {
@@ -121,8 +121,22 @@ export default function RetailSlide() {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") closeModal(); };
     globalThis.addEventListener("keydown", onKey);
     return () => globalThis.removeEventListener("keydown", onKey);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
+  }, [selected, closeModal]);
+
+  // Tab focus trap for the modal
+  const trapFocus = useCallback((e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key !== "Tab") return;
+    const focusables = e.currentTarget.querySelectorAll<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    );
+    const first = focusables[0];
+    const last = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault(); last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault(); first.focus();
+    }
+  }, []);
 
   return (
     <div className="slide-wrapper bg-[#050505] flex flex-col md:flex-row overflow-hidden">
@@ -135,7 +149,7 @@ export default function RetailSlide() {
         <motion.div
           initial={{ opacity: 0, x: -36 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: EASE }}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
         >
           <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-3 font-medium">
             Commercial Real Estate
@@ -166,7 +180,7 @@ export default function RetailSlide() {
                 key={point}
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.32 + i * 0.09, ease: EASE }}
+                transition={{ delay: 0.32 + i * 0.09, ease: EASE_OUT }}
                 className="flex items-start gap-2.5 text-sm text-white/50"
               >
                 <span className="mt-[5px] w-1 h-1 rounded-full flex-none bg-[#c9a84c]/60" />
@@ -197,7 +211,7 @@ export default function RetailSlide() {
                 key={space.id}
                 initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.14 + i * 0.07, duration: 0.5, ease: EASE }}
+                transition={{ delay: 0.14 + i * 0.07, duration: 0.5, ease: EASE_OUT }}
                 onClick={() => setSelected(space)}
                 className="group glass-card rounded-2xl p-5 text-left hover:border-white/18 transition-all duration-300 cursor-pointer"
                 whileHover={{ y: -3 }}
@@ -252,6 +266,7 @@ export default function RetailSlide() {
               exit={{ x: "100%", opacity: 0 }}
               transition={{ type: "spring", damping: 28, stiffness: 280 }}
               className="absolute right-0 top-0 h-full w-full max-w-sm bg-[#0c0c0c] border-l border-white/[0.07] z-30 overflow-y-auto"
+              onKeyDown={trapFocus}
             >
               <div className="p-7">
                 <button
@@ -299,7 +314,7 @@ export default function RetailSlide() {
 
                 <button
                   style={{ background: selected.color }}
-                  className="w-full py-3.5 text-black text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm hover:opacity-88 transition-opacity"
+                  className="w-full py-3.5 text-black text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm hover:opacity-90 transition-opacity"
                 >
                   Request Leasing Info
                 </button>

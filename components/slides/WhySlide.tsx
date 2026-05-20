@@ -11,6 +11,9 @@ import {
   ArrowRight,
 } from "lucide-react";
 import AnimatedCounter from "@/components/ui/AnimatedCounter";
+import { SLIDE_COLORS } from "@/lib/theme";
+import { EASE_OUT } from "@/lib/motion";
+import type { SlideProps } from "@/types/slides";
 
 const STATS = [
   {
@@ -19,7 +22,7 @@ const STATS = [
     suffix: "M+",
     label: "Annual Visitors",
     desc: "More than any entertainment destination in the US Northeast",
-    color: "#4a90d9",
+    color: SLIDE_COLORS.why,
   },
   {
     icon: Building2,
@@ -27,7 +30,7 @@ const STATS = [
     suffix: "M",
     label: "Square Feet",
     desc: "Under one climate-controlled, year-round roof",
-    color: "#c9a84c",
+    color: SLIDE_COLORS.gold,
   },
   {
     icon: Sparkles,
@@ -35,7 +38,7 @@ const STATS = [
     suffix: "+",
     label: "Retailers & Experiences",
     desc: "From luxury flagships to one-of-a-kind activations",
-    color: "#e8c4d0",
+    color: SLIDE_COLORS.luxury,
   },
   {
     icon: MapPin,
@@ -43,7 +46,7 @@ const STATS = [
     suffix: "M",
     label: "People Within 1-Hr Drive",
     desc: "The world's most valuable consumer catchment",
-    color: "#e8904a",
+    color: SLIDE_COLORS.dining,
   },
   {
     icon: TrendingUp,
@@ -51,7 +54,7 @@ const STATS = [
     suffix: "+",
     label: "Unique Attractions",
     desc: "America's only indoor ski, water park & theme park",
-    color: "#9b59b6",
+    color: SLIDE_COLORS.entertainment,
   },
   {
     icon: Award,
@@ -59,22 +62,20 @@ const STATS = [
     suffix: "",
     label: "#1 Tourist Destination in NJ",
     desc: "Surpassing every state landmark in annual visits",
-    color: "#2ecc71",
+    color: SLIDE_COLORS.events,
   },
 ];
-
-const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.08, duration: 0.6, ease: EASE },
+    transition: { delay: i * 0.08, duration: 0.6, ease: EASE_OUT },
   }),
 };
 
-export default function WhySlide() {
+export default function WhySlide(_: SlideProps) {
   return (
     <div className="slide-wrapper bg-[#060606] flex flex-col md:flex-row overflow-hidden">
       {/* Background */}
@@ -93,7 +94,7 @@ export default function WhySlide() {
         <motion.div
           initial={{ opacity: 0, x: -28 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.75, ease: EASE }}
+          transition={{ duration: 0.75, ease: EASE_OUT }}
         >
           <div className="text-[9px] tracking-[0.55em] text-[#c9a84c] uppercase mb-4 font-medium">
             The Opportunity

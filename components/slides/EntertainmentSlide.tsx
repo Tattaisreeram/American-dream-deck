@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { ArrowRight, Snowflake, Waves, Star, Fish, Ticket, Zap } from "lucide-react";
+import { SLIDE_COLORS } from "@/lib/theme";
+import { EASE_OUT } from "@/lib/motion";
 
 const ATTRACTIONS = [
   {
@@ -54,7 +56,7 @@ const ATTRACTIONS = [
   },
 ];
 
-const ACCENT = "#9b59b6";
+const ACCENT = SLIDE_COLORS.entertainment;
 
 export default function EntertainmentSlide() {
   return (
@@ -67,7 +69,7 @@ export default function EntertainmentSlide() {
         <motion.div
           initial={{ opacity: 0, x: -36 }}
           animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, ease: EASE_OUT }}
         >
           <div
             className="text-[9px] tracking-[0.55em] uppercase mb-3 font-medium"
@@ -143,7 +145,7 @@ export default function EntertainmentSlide() {
                 transition={{
                   delay: 0.14 + i * 0.07,
                   duration: 0.5,
-                  ease: [0.16, 1, 0.3, 1],
+                  ease: EASE_OUT,
                 }}
                 className="glass-card rounded-2xl p-5 hover:border-white/18 transition-all duration-300 cursor-default"
                 whileHover={{ y: -3 }}

@@ -3,13 +3,14 @@
 import { motion } from "framer-motion";
 import {
   ArrowRight,
-  Calendar,
-  Music,
   Building2,
-  Mic,
-  Users,
+  Calendar,
   CheckCircle,
+  Mic,
+  Music,
+  Users,
 } from "lucide-react";
+import { SLIDE_COLORS } from "@/lib/theme";
 
 
 const VENUES = [
@@ -53,7 +54,7 @@ const EVENT_TYPES = [
   { icon: Mic, label: "Brand Activations" },
   { icon: Users, label: "Trade Shows & Expos" },
 ];
-
+ 
 const CAPABILITIES = [
   "In-house A/V production",
   "4K LED screens & rigging",
@@ -63,7 +64,7 @@ const CAPABILITIES = [
   "26,000 free parking spaces",
 ];
 
-const ACCENT = "#2ecc71";
+const ACCENT = SLIDE_COLORS.events;
 
 export default function EventsSlide() {
   return (

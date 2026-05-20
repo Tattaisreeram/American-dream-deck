@@ -27,15 +27,18 @@ body {
   overflow: hidden;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
-    "Segoe UI", system-ui, sans-serif;
+  font-family: var(--font-geist-sans), -apple-system, BlinkMacSystemFont,
+    system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Hide native cursor on desktop so CustomCursor takes over */
+/* Hide native cursor on desktop so CustomCursor takes over.
+   Scoped to body.has-custom-cursor so the native cursor survives
+   if JS fails or CustomCursor hasn't mounted yet. */
 @media (hover: hover) and (pointer: fine) {
-  * { cursor: none !important; }
+  body.has-custom-cursor,
+  body.has-custom-cursor * { cursor: none; }
 }
 
 /* Screen-reader only utility */

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Utensils, Coffee, Wine, ChefHat, ArrowRight } from "lucide-react";
+import { SLIDE_COLORS } from "@/lib/theme";
 
 const CATEGORIES = [
   {
@@ -53,7 +54,7 @@ const FEATURED = [
   },
 ];
 
-const ACCENT = "#e8904a";
+const ACCENT = SLIDE_COLORS.dining;
 
 export default function DiningSlide() {
   return (

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Navigation from "./Navigation";
 import HeroSlide from "./slides/HeroSlide";
@@ -14,6 +14,7 @@ import EntertainmentSlide from "./slides/EntertainmentSlide";
 import EventsSlide from "./slides/EventsSlide";
 import CustomCursor from "./ui/CustomCursor";
 import ShortcutsOverlay from "./ui/ShortcutsOverlay";
+import ErrorBoundary from "./ui/ErrorBoundary";
 import type { SlideProps } from "@/types/slides";
 import { SLIDES } from "@/lib/slides-config";
 import { EASE_IN_OUT } from "@/lib/motion";
@@ -61,6 +62,7 @@ export default function DeckController() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const slideRef = useRef<HTMLDivElement>(null);
   const swipeStartX = useRef<number | null>(null);
+  const prefersReducedMotion = useReducedMotion();
 
   const goTo = useCallback(
     (index: number) => {
@@ -105,9 +107,11 @@ export default function DeckController() {
         setShowShortcuts((v) => !v);
         return;
       }
-      if (showShortcuts) return;
+      if (showShortcuts) {
+        if (e.key === "Escape") setShowShortcuts(false);
+        return;
+      }
 
-      if (e.key === "Escape") { goTo(1); return; }
       if (e.key === "ArrowRight") { goNext(); return; }
       if (e.key === "ArrowLeft") { goPrev(); return; }
       // Vertical arrows only when slide isn't scrollable
@@ -146,7 +150,21 @@ export default function DeckController() {
     [goNext, goPrev]
   );
 
+  const onPointerCancel = useCallback(() => {
+    swipeStartX.current = null;
+  }, []);
+
   const SlideComponent = COMPONENTS[current];
+
+  // Reduced-motion: collapse animation to a quick fade
+  const transitionDuration = prefersReducedMotion ? 0.15 : 0.6;
+  const animVariants = prefersReducedMotion
+    ? {
+        enter: { opacity: 0, x: 0, scale: 1 },
+        center: { opacity: 1, x: 0, scale: 1 },
+        exit: { opacity: 0, x: 0, scale: 1 },
+      }
+    : slideVariants;
 
   return (
     <>
@@ -164,27 +182,30 @@ export default function DeckController() {
         id="deck-root"
         onPointerDown={onPointerDown}
         onPointerUp={onPointerUp}
+        onPointerCancel={onPointerCancel}
       >
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={current}
             ref={slideRef}
             custom={direction}
-            variants={slideVariants}
+            variants={animVariants}
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ duration: 0.6, ease: EASE_IN_OUT }}
+            transition={{ duration: transitionDuration, ease: EASE_IN_OUT }}
             className="absolute inset-0 outline-none"
             tabIndex={-1}
           >
-            <SlideComponent
-              onEnter={() => goTo(1)}
-              onNext={goNext}
-              onPrev={goPrev}
-              goTo={goTo}
-              current={current}
-            />
+            <ErrorBoundary>
+              <SlideComponent
+                onEnter={() => goTo(1)}
+                onNext={goNext}
+                onPrev={goPrev}
+                goTo={goTo}
+                current={current}
+              />
+            </ErrorBoundary>
           </motion.div>
         </AnimatePresence>
 

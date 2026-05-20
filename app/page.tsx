@@ -1,5 +1,7 @@
-import DeckLoader from "@/components/DeckLoader";
+"use client";
+
+import DeckController from "@/components/DeckController";
 
 export default function Home() {
-  return <DeckLoader />;
+  return <DeckController />;
 }
