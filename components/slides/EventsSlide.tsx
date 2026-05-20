@@ -1,5 +1,6 @@
 "use client";
 
+import { SLIDE_COLORS } from "@/lib/theme";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -10,7 +11,6 @@ import {
   Music,
   Users,
 } from "lucide-react";
-import { SLIDE_COLORS } from "@/lib/theme";
 
 
 const VENUES = [

@@ -1,23 +1,23 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { EASE_IN_OUT } from "@/lib/motion";
+import { SLIDES } from "@/lib/slides-config";
+import type { SlideProps } from "@/types/slides";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Navigation from "./Navigation";
-import HeroSlide from "./slides/HeroSlide";
-import HubSlide from "./slides/HubSlide";
-import WhySlide from "./slides/WhySlide";
-import RetailSlide from "./slides/RetailSlide";
-import LuxurySlide from "./slides/LuxurySlide";
 import DiningSlide from "./slides/DiningSlide";
 import EntertainmentSlide from "./slides/EntertainmentSlide";
 import EventsSlide from "./slides/EventsSlide";
+import HeroSlide from "./slides/HeroSlide";
+import HubSlide from "./slides/HubSlide";
+import LuxurySlide from "./slides/LuxurySlide";
+import RetailSlide from "./slides/RetailSlide";
+import WhySlide from "./slides/WhySlide";
 import CustomCursor from "./ui/CustomCursor";
-import ShortcutsOverlay from "./ui/ShortcutsOverlay";
 import ErrorBoundary from "./ui/ErrorBoundary";
-import type { SlideProps } from "@/types/slides";
-import { SLIDES } from "@/lib/slides-config";
-import { EASE_IN_OUT } from "@/lib/motion";
+import ShortcutsOverlay from "./ui/ShortcutsOverlay";
 
 export type { SlideConfig } from "@/lib/slides-config";
 export { SLIDES };
