@@ -1,123 +1,121 @@
-# American Dream — Interactive B2B Sales Deck
+# American Dream — Interactive Sales Deck
 
-A fully interactive, browser-based B2B sales presentation for **American Dream** — the 3-million square-foot mixed-use mega-destination in East Rutherford, New Jersey. Built as a cinematic, non-linear presentation tool for retail tenants, corporate sponsors, and event promoters.
+A cinematic, browser-based B2B presentation for **American Dream** — the 3-million square-foot mixed-use destination in East Rutherford, New Jersey. Built for retail leasing, corporate sponsorships, and event venue sales.
 
-**Live Demo:** _[Deploy to Vercel and add URL here]_
+**Live:** _[Deploy to Vercel and add URL here]_
 
 ---
 
-## What This Is
+## What It Is
 
-This is not a scrolling website. It's a **presentation deck** — eight full-screen chapters that a salesperson can screen-share on a live call or send as a standalone link. Navigation is non-linear; prospects jump directly to what matters to them.
+Not a website — a **presentation deck**. Eight full-screen chapters, each designed for a specific sales conversation: leasing, luxury, dining, entertainment, or events. A salesperson can screen-share it on a live call or send a direct link to a specific chapter (`/#retail`, `/#events`, etc.) and the recipient lands exactly there.
+
+---
+
+## Quick Start
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build    # production build check
+```
+
+---
+
+## Navigation
+
+| Input | Action |
+|---|---|
+| `→` or `↓` | Next slide |
+| `←` or `↑` | Previous slide |
+| `1` – `8` | Jump directly to that chapter |
+| Swipe left/right | Next / previous (touch and trackpad) |
+| `?` | Toggle keyboard shortcuts overlay |
+
+URL updates on every slide change — browser back/forward works as expected.
+
+---
+
+## The 8 Chapters
+
+| # | URL hash | Content |
+|---|---|---|
+| 0 | `#hero` | Opening — cinematic title with ambient animations |
+| 1 | `#hub` | Chapter menu — jump to any section |
+| 2 | `#why` | Why American Dream — animated scale stats |
+| 3 | `#retail` | Retail leasing — 5 zone cards with detail modal |
+| 4 | `#luxury` | The Avenue — luxury wing positioning |
+| 5 | `#dining` | Dining & Lifestyle — 150+ F&B concepts |
+| 6 | `#entertainment` | Entertainment — 9 world-class attractions |
+| 7 | `#events` | Events & Venues — venue specs and infrastructure |
+
+---
+
+## Project Structure
+
+```
+app/
+  layout.tsx              Metadata, OG tags, Viewport, Geist font
+  page.tsx                Entry point — loads DeckController (client-only)
+  globals.css             Design tokens, glass-card, slide-wrapper, animations
+
+lib/
+  slides-config.ts        Slide registry (id, label, scrollable flag)
+  theme.ts                Shared color constants (SLIDE_COLORS)
+  motion.ts               Shared easing constants (EASE_OUT, EASE_IN_OUT)
+
+types/
+  slides.ts               SlideProps interface (required: onEnter, onNext, onPrev, goTo, current)
+
+components/
+  DeckController.tsx      Core state machine — slide transitions, keyboard nav, swipe, URL routing
+  Navigation.tsx          Fixed top nav — chapter dots, progress bar, slide label
+
+  slides/
+    HeroSlide.tsx
+    HubSlide.tsx
+    WhySlide.tsx
+    RetailSlide.tsx
+    LuxurySlide.tsx
+    DiningSlide.tsx
+    EntertainmentSlide.tsx
+    EventsSlide.tsx
+
+  ui/
+    AnimatedCounter.tsx   Counts up to a number when it scrolls into view
+    CustomCursor.tsx      Gold dot cursor (desktop only) — rAF-throttled hit detection
+    ErrorBoundary.tsx     Catches slide-level errors without crashing the whole deck
+    ShortcutsOverlay.tsx  Modal listing all keyboard shortcuts (press ?)
+```
 
 ---
 
 ## Tech Stack
 
-| Layer | Choice | Why |
-|---|---|---|
-| Framework | Next.js 16 (App Router) | Turbopack speed, Server Components, dynamic imports |
-| Styling | Tailwind CSS v4 | CSS-native config, no config file, fast rebuilds |
-| Animation | Framer Motion v12 | `AnimatePresence` slide transitions, `useInView` counters |
-| Icons | Lucide React | Consistent, minimal stroke icons |
-| Hosting | Vercel | Zero-config CI/CD from GitHub |
+| | |
+|---|---|
+| **Framework** | Next.js 16, App Router, Turbopack |
+| **Styling** | Tailwind CSS v4 — CSS-native via `@import "tailwindcss"` |
+| **Animation** | Framer Motion v12 |
+| **Icons** | Lucide React |
+| **Language** | TypeScript (strict) |
 
 ---
 
-## Setup
+## Key Things to Know
 
-```bash
-npm install
-npm run dev        # http://localhost:3000
-npm run build      # production build
-npm run start      # serve production build
-```
+**Slide layout classes** — Two layout modes live in `globals.css`:
+- `.slide-wrapper` — full-screen, overflow hidden. Used by all non-scrolling slides.
+- `.slide-wrapper-scroll` — starts below the nav bar, scrolls vertically. Used by DiningSlide and EventsSlide.
 
----
+**Design tokens** — Colors and easing are centralized:
+- `lib/theme.ts` → `SLIDE_COLORS` (one color per chapter + gold/goldLight)
+- `lib/motion.ts` → `EASE_OUT` and `EASE_IN_OUT` tuples for Framer Motion
 
-## Architecture
+**SSR is disabled** — `DeckController` reads `window.location.hash` at initialization. `page.tsx` uses `dynamic(() => import(...), { ssr: false })` to prevent a server/client hydration mismatch.
 
-```
-app/
-  layout.tsx              Root layout — metadata + global fonts
-  page.tsx                Entry point — renders DeckLoader (server-safe)
-  globals.css             CSS variables, glass-card, text-gold-gradient
+**Scrollable slide guard** — `SLIDES[n].scrollable` tells `DeckController` not to capture `ArrowUp`/`ArrowDown` on slides that scroll (Dining, Events), so the user can scroll normally.
 
-components/
-  DeckLoader.tsx          Client boundary — wraps DeckController with ssr:false
-  DeckController.tsx      Slide state machine — AnimatePresence transitions, keyboard nav
-  Navigation.tsx          Fixed top nav bar — chapter dots with layoutId animation
+**Custom cursor** — Only appears on desktop (`@media (hover: hover) and (pointer: fine)`). The native cursor is hidden via `body.has-custom-cursor` — a class `CustomCursor` adds on mount, so the native cursor remains if JS fails.
 
-  slides/
-    HeroSlide.tsx         Chapter 0 — cinematic opening with ambient orbs
-    HubSlide.tsx          Chapter 1 — non-linear chapter picker
-    WhySlide.tsx          Chapter 2 — animated stat counters, scale data
-    RetailSlide.tsx       Chapter 3 — horizontal gallery + side-panel modal
-    LuxurySlide.tsx       Chapter 4 — The Avenue split-screen
-    DiningSlide.tsx       Chapter 5 — F&B categories + featured tenants
-    EntertainmentSlide.tsx Chapter 6 — 9 attractions grid + brand activation pitch
-    EventsSlide.tsx       Chapter 7 — venue specs table + infrastructure checklist
-
-  ui/
-    AnimatedCounter.tsx   useInView-triggered number animation (Framer Motion animate())
-
-types/
-  slides.ts               Shared SlideProps interface
-```
-
-### Key Design Decisions
-
-**Hub-and-Spoke navigation:** Chapter 1 (`HubSlide`) is a full-screen menu. Every slide is also reachable from the persistent top nav bar — exactly like Digideck.
-
-**SSR bypass via DeckLoader:** `DeckController` imports Framer Motion and uses browser APIs. Next.js 16 requires the `ssr: false` dynamic import to live inside a Client Component — `DeckLoader.tsx` is that boundary. The page itself stays a Server Component for metadata export.
-
-**Framer Motion v12 easing types:** Cubic-bezier arrays must be typed as `[number, number, number, number]` tuples — plain `number[]` fails TypeScript in v12.
-
-**Tailwind v4 CSS layering:** Custom utility classes (`.glass-card`, `.slide-wrapper`) live in unlayered CSS, which sits above the Tailwind `utilities` layer in specificity. Slides needing vertical scroll use `.slide-wrapper-scroll` (defined in globals.css) rather than fighting Tailwind's override order.
-
----
-
-## Chapter Map
-
-| # | Slide | Business Goal |
-|---|---|---|
-| 0 | Hero | First impression — scale + energy |
-| 1 | Hub | Non-linear navigation menu |
-| 2 | Why Us | Data-driven credibility |
-| 3 | Retail Leasing | Drive leasing inquiries |
-| 4 | The Avenue | Luxury positioning |
-| 5 | Dining & Lifestyle | F&B leasing |
-| 6 | Entertainment | Sponsorship/activation pitch |
-| 7 | Events & Venues | Venue bookings |
-
-**Keyboard navigation:** `→` / `↓` to advance, `←` / `↑` to go back.
-
----
-
-## Phase 2 Expansion Points
-
-The codebase is modular and ready for expansion without rewrites:
-
-- **Sponsorship Module** — Add `SponsorshipSlide.tsx` with tier cards and audience data
-- **Leasing Sub-Paths** — Segment RetailSlide into luxury/F&B/pop-up sub-modules
-- **Venue Deep-Dives** — Dedicated slides for the Performing Arts Center and Exposition Center
-- **Lead Capture** — Replace CTA buttons with `react-hook-form` + Next.js API route
-- **Video Backgrounds** — Swap gradient animations for `<video autoPlay muted loop playsInline>` with lazy loading
-
----
-
-## AI Tools Used
-
-- **Claude Sonnet 4.6** — Full architecture design, all component code, TypeScript debugging, and README
-- **Midjourney / DALL-E** — Would be used for AI-generated activation mockups and venue renderings in Phase 2
-- The cinematic gradient backgrounds are CSS-only — no image assets to load, keeping Lighthouse performance high by design
-
----
-
-## Performance Notes
-
-- `ssr: false` + `next/dynamic` removes unused server bundle weight and prevents hydration mismatch
-- All animations are GPU-accelerated (`transform`, `opacity`) via Framer Motion
-- No images in Phase 1 — pure CSS gradients and SVG icons, zero LCP asset requests
-- Horizontal galleries use `overflow-x: auto` with `scrollbar-hidden` for clean UX
-- `useInView({ once: true })` on counters triggers exactly once per session, no re-render waste
+**Reduced motion** — `DeckController` calls `useReducedMotion()` from Framer Motion. When the OS preference is set, slide transitions collapse to a 150ms fade instead of the 600ms directional slide.
