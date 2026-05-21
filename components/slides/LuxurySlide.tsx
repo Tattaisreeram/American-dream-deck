@@ -38,11 +38,22 @@ export default function LuxurySlide() {
     <div className="slide-wrapper bg-[#050505] flex flex-col md:flex-row overflow-hidden">
       {/* Left — visual panel */}
       <div className="relative md:w-[45%] flex-none h-56 md:h-full overflow-hidden">
+        {/*
+          PHOTO BACKGROUND — drop luxury.jpg into /public/ to activate.
+          Ideal: wide shot of The Avenue corridor, luxury storefronts, warm lighting.
+          Recommended: 1200×1600px portrait, high-res.
+        */}
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: "url('/luxury.jpg')" }}
+        />
+
+        {/* Dark overlay — keeps animated elements readable over the photo */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(135deg, #0b0900 0%, #060400 50%, #080808 100%)",
+              "linear-gradient(135deg, rgba(11,9,0,0.82) 0%, rgba(6,4,0,0.7) 50%, rgba(8,8,8,0.85) 100%)",
           }}
         />
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_30%_50%,rgba(201,168,76,0.11),transparent)]" />
@@ -189,14 +200,15 @@ export default function LuxurySlide() {
             </div>
           </div>
 
-          <button
+          <a
+            href="mailto:leasing@americandream.com?subject=The%20Avenue%20Availability%20Inquiry"
             className="inline-flex items-center gap-3 px-8 py-3 border border-[#c9a84c]/35 text-[#c9a84c] text-[11px] tracking-[0.3em] uppercase transition-colors rounded-sm"
             onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(201,168,76,0.08)")}
             onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
           >
             View Avenue Availability
             <ArrowRight size={13} />
-          </button>
+          </a>
         </motion.div>
       </div>
     </div>

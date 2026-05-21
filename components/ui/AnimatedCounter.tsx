@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView, animate } from "framer-motion";
+import { EASE_OUT } from "@/lib/motion";
 
 interface Props {
   from?: number;
@@ -26,7 +27,7 @@ export default function AnimatedCounter({
     if (!inView) return;
     const controls = animate(from, to, {
       duration,
-      ease: [0.16, 1, 0.3, 1],
+      ease: EASE_OUT,
       onUpdate: (v) => setValue(Math.round(v)),
     });
     return controls.stop;

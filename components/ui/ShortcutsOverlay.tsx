@@ -3,18 +3,19 @@
 import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { EASE_OUT } from "@/lib/motion";
 
 interface Props {
-  open: boolean;
-  onClose: () => void;
+  readonly open: boolean;
+  readonly onClose: () => void;
 }
 
 const SHORTCUTS = [
   { keys: ["→", "↓"], desc: "Next slide" },
   { keys: ["←", "↑"], desc: "Previous slide" },
   { keys: ["1 – 8"], desc: "Jump to chapter" },
-  { keys: ["Esc"], desc: "Return to overview / close" },
   { keys: ["?"], desc: "Toggle this panel" },
+  { keys: ["Esc"], desc: "Close this panel" },
 ];
 
 export default function ShortcutsOverlay({ open, onClose }: Props) {
@@ -23,8 +24,8 @@ export default function ShortcutsOverlay({ open, onClose }: Props) {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "?") onClose();
     };
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    globalThis.addEventListener("keydown", onKey);
+    return () => globalThis.removeEventListener("keydown", onKey);
   }, [open, onClose]);
 
   return (
@@ -42,7 +43,7 @@ export default function ShortcutsOverlay({ open, onClose }: Props) {
             initial={{ opacity: 0, scale: 0.95, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 8 }}
-            transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.2, ease: EASE_OUT }}
             role="dialog"
             aria-label="Keyboard shortcuts"
             className="fixed inset-0 z-[91] flex items-center justify-center p-6 pointer-events-none"

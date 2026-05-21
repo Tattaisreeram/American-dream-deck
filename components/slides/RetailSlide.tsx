@@ -189,7 +189,8 @@ export default function RetailSlide() {
             ))}
           </div>
 
-          <button
+          <a
+            href="mailto:leasing@americandream.com?subject=Retail%20Leasing%20Inquiry"
             className="inline-flex items-center gap-3 px-8 py-3 text-black text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm transition-colors"
             style={{ background: "#c9a84c" }}
             onMouseEnter={(e) => (e.currentTarget.style.background = "#f0d485")}
@@ -197,7 +198,7 @@ export default function RetailSlide() {
           >
             Explore Leasing Opportunities
             <ArrowRight size={13} />
-          </button>
+          </a>
         </motion.div>
       </div>
 
@@ -312,12 +313,13 @@ export default function RetailSlide() {
                   <div className="text-xl font-bold text-white">{selected.size}</div>
                 </div>
 
-                <button
+                <a
+                  href="mailto:leasing@americandream.com?subject=Leasing%20Inquiry%20%E2%80%94%20Retail%20Zone"
                   style={{ background: selected.color }}
-                  className="w-full py-3.5 text-black text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm hover:opacity-90 transition-opacity"
+                  className="w-full py-3.5 text-black text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm hover:opacity-90 transition-opacity flex items-center justify-center"
                 >
                   Request Leasing Info
-                </button>
+                </a>
               </div>
             </motion.div>
           </>

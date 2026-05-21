@@ -5,6 +5,16 @@ import { ArrowRight, Snowflake, Waves, Star, Fish, Ticket, Zap } from "lucide-re
 import { SLIDE_COLORS } from "@/lib/theme";
 import { EASE_OUT } from "@/lib/motion";
 
+/*
+  ATTRACTION PHOTOS — drop these into /public/ to activate:
+    big-snow.jpg         · Skiers on the indoor slope, blue lighting
+    water-park.jpg       · Wide shot of slides and wave pool
+    nickelodeon.jpg      · Theme park rides, colorful environment
+    sea-life.jpg          · Ocean tunnel with sharks overhead
+    rink.jpg             · Ice skating rink, arena overhead view
+    mini-golf.jpg        · Angry Birds themed hole with players
+  Recommended: 800×600px landscape, vibrant and action-filled.
+*/
 const ATTRACTIONS = [
   {
     name: "Big Snow",
@@ -13,6 +23,7 @@ const ATTRACTIONS = [
     color: "#4a90d9",
     stat: "180,000 sq ft",
     detail: "Year-round skiing, snowboarding & tubing",
+    photo: "/big-snow.jpg",
   },
   {
     name: "DreamWorks Water Park",
@@ -21,6 +32,7 @@ const ATTRACTIONS = [
     color: "#2ecc71",
     stat: "532,000 sq ft",
     detail: "40+ rides, DreamWorks characters throughout",
+    photo: "/water-park.jpg",
   },
   {
     name: "Nickelodeon Universe",
@@ -29,6 +41,7 @@ const ATTRACTIONS = [
     color: "#f39c12",
     stat: "8 acres",
     detail: "35 rides across 8 fully themed lands",
+    photo: "/nickelodeon.jpg",
   },
   {
     name: "SEA LIFE Aquarium",
@@ -37,6 +50,7 @@ const ATTRACTIONS = [
     color: "#1abc9c",
     stat: "120+ species",
     detail: "Walk-through ocean tunnel and touch pools",
+    photo: "/sea-life.jpg",
   },
   {
     name: "The Rink",
@@ -45,6 +59,7 @@ const ATTRACTIONS = [
     color: "#9b59b6",
     stat: "200-seat arena",
     detail: "Public skating, hockey leagues, private events",
+    photo: "/rink.jpg",
   },
   {
     name: "Angry Birds Mini Golf",
@@ -53,6 +68,7 @@ const ATTRACTIONS = [
     color: "#e74c3c",
     stat: "18 holes",
     detail: "Interactive adventure golf with Angry Birds IP",
+    photo: "/mini-golf.jpg",
   },
 ];
 
@@ -101,7 +117,7 @@ export default function EntertainmentSlide() {
               "Premium co-branding on every attraction",
             ].map((point, i) => (
               <motion.div
-                key={i}
+                key={point}
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.32 + i * 0.09 }}
@@ -116,7 +132,8 @@ export default function EntertainmentSlide() {
             ))}
           </div>
 
-          <button
+          <a
+            href="mailto:sponsorships@americandream.com?subject=Entertainment%20Activation%20Inquiry"
             className="inline-flex items-center gap-3 px-8 py-3 text-white text-[11px] font-bold tracking-[0.3em] uppercase rounded-sm transition-all"
             style={{ background: ACCENT }}
             onMouseEnter={(e) =>
@@ -128,7 +145,7 @@ export default function EntertainmentSlide() {
           >
             Explore Activation Tiers
             <ArrowRight size={13} />
-          </button>
+          </a>
         </motion.div>
       </div>
 
@@ -147,15 +164,32 @@ export default function EntertainmentSlide() {
                   duration: 0.5,
                   ease: EASE_OUT,
                 }}
-                className="glass-card rounded-2xl p-5 hover:border-white/18 transition-all duration-300 cursor-default"
+                className="glass-card rounded-2xl overflow-hidden hover:border-white/18 transition-all duration-300 cursor-default"
                 whileHover={{ y: -3 }}
               >
+                {/* Photo thumbnail — visible when the image file exists */}
                 <div
-                  className="w-8 h-8 rounded-lg flex items-center justify-center mb-3"
-                  style={{ background: `${attr.color}18` }}
+                  className="w-full h-24 bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url('${attr.photo}')`,
+                    background: attr.photo
+                      ? `url('${attr.photo}') center/cover no-repeat, ${attr.color}12`
+                      : `${attr.color}12`,
+                  }}
                 >
-                  <Icon size={15} style={{ color: attr.color }} />
+                  {/* Icon overlay — always visible */}
+                  <div className="w-full h-full flex items-end p-3"
+                    style={{ background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }}
+                  >
+                    <div
+                      className="w-7 h-7 rounded-md flex items-center justify-center"
+                      style={{ background: `${attr.color}30`, backdropFilter: "blur(4px)" }}
+                    >
+                      <Icon size={13} style={{ color: attr.color }} />
+                    </div>
+                  </div>
                 </div>
+                <div className="p-4">
                 <div className="text-base font-bold text-white mb-0.5 leading-snug">
                   {attr.name}
                 </div>
@@ -171,6 +205,7 @@ export default function EntertainmentSlide() {
                 <div className="text-[10px] text-white/35 mt-1 leading-snug">
                   {attr.detail}
                 </div>
+                </div>{/* /p-4 */}
               </motion.div>
             );
           })}

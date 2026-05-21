@@ -138,7 +138,8 @@ export default function WhySlide(_: SlideProps) {
             </span>
           </div>
 
-          <button
+          <a
+            href="mailto:partnerships@americandream.com?subject=Market%20Analysis%20Request"
             className="inline-flex items-center gap-3 px-6 py-2.5 border border-[#c9a84c]/30 text-[#c9a84c] text-[10px] tracking-[0.3em] uppercase rounded-sm transition-colors"
             onMouseEnter={(e) =>
               (e.currentTarget.style.background = "rgba(201,168,76,0.08)")
@@ -149,7 +150,7 @@ export default function WhySlide(_: SlideProps) {
           >
             View Full Market Analysis
             <ArrowRight size={11} />
-          </button>
+          </a>
         </motion.div>
       </div>
 

@@ -173,7 +173,8 @@ export default function DiningSlide() {
         transition={{ delay: 0.65 }}
         className="relative z-10 px-8 md:pl-20 pb-8 pt-4 flex-none"
       >
-        <button
+        <a
+          href="mailto:leasing@americandream.com?subject=F%26B%20Leasing%20Inquiry"
           className="inline-flex items-center gap-3 px-8 py-3 text-[11px] tracking-[0.3em] uppercase transition-colors rounded-sm"
           style={{
             border: `1px solid ${ACCENT}35`,
@@ -188,7 +189,7 @@ export default function DiningSlide() {
         >
           F&B Leasing Inquiries
           <ArrowRight size={13} />
-        </button>
+        </a>
       </motion.div>
     </div>
   );

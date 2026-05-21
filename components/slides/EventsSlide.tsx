@@ -214,7 +214,8 @@ export default function EventsSlide() {
             transition={{ delay: 0.8 }}
             className="flex flex-col gap-3 pt-2"
           >
-            <button
+            <a
+              href="mailto:events@americandream.com?subject=Venue%20Booking%20Inquiry"
               className="flex items-center justify-center gap-2.5 py-3.5 text-black text-[11px] font-bold tracking-[0.25em] uppercase rounded-sm transition-all"
               style={{ background: ACCENT }}
               onMouseEnter={(e) =>
@@ -226,11 +227,16 @@ export default function EventsSlide() {
             >
               Book a Venue
               <ArrowRight size={12} />
-            </button>
-            <button className="flex items-center justify-center gap-2.5 py-3 border border-white/12 text-white/40 text-[11px] tracking-[0.25em] uppercase hover:border-white/25 hover:text-white/65 transition-all rounded-sm">
+            </a>
+            <a
+              href="/event-guide?print=1"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2.5 py-3 border border-white/12 text-white/40 text-[11px] tracking-[0.25em] uppercase hover:border-white/25 hover:text-white/65 transition-all rounded-sm"
+            >
               <Calendar size={12} />
               Download Event Guide
-            </button>
+            </a>
           </motion.div>
         </div>
       </div>

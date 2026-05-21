@@ -8,6 +8,7 @@ import {
   Utensils,
   Zap,
   Calendar,
+  ArrowRight,
 } from "lucide-react";
 import type { SlideProps } from "@/types/slides";
 import { SLIDE_COLORS } from "@/lib/theme";
@@ -150,9 +151,7 @@ export default function HubSlide({ goTo }: SlideProps) {
 
               {/* Arrow reveal */}
               <div className="absolute bottom-4 right-4 translate-x-2 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300">
-                <span style={{ color: ch.color }} className="text-sm">
-                  →
-                </span>
+                <ArrowRight size={13} style={{ color: ch.color }} />
               </div>
             </motion.button>
           );

@@ -15,6 +15,26 @@ export default function HeroSlide({ onEnter }: SlideProps) {
 
   return (
     <div className="slide-wrapper relative bg-[#050505] flex items-center justify-center overflow-hidden">
+      {/*
+        VIDEO BACKGROUND — drop hero.mp4 into /public/ to activate.
+        Ideal: 15–30s aerial or interior shot of American Dream, no audio needed.
+        The dark overlay below keeps text readable at any video brightness.
+      */}
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        style={{ opacity: 0.28 }}
+        autoPlay
+        muted
+        loop
+        playsInline
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+        {/* Fallback: gradients render if no video file is present */}
+      </video>
+
+      {/* Dark scrim — ensures text contrast regardless of video brightness */}
+      <div className="absolute inset-0 bg-[#050505]/60" />
+
       {/* Layered radial gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_-10%,rgba(201,168,76,0.07),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_15%_90%,rgba(201,168,76,0.04),transparent)]" />
