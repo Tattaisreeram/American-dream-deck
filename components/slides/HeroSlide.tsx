@@ -22,18 +22,19 @@ export default function HeroSlide({ onEnter }: SlideProps) {
       */}
       <video
         className="absolute inset-0 w-full h-full object-cover"
-        style={{ opacity: 0.28 }}
+        style={{ opacity: 0.42 }}
         autoPlay
         muted
         loop
         playsInline
+        poster="/hero.jpg"
       >
         <source src="/hero.mp4" type="video/mp4" />
         {/* Fallback: gradients render if no video file is present */}
       </video>
 
       {/* Dark scrim — ensures text contrast regardless of video brightness */}
-      <div className="absolute inset-0 bg-[#050505]/60" />
+      <div className="absolute inset-0 bg-[#050505]/50" />
 
       {/* Layered radial gradient background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_-10%,rgba(201,168,76,0.07),transparent)]" />

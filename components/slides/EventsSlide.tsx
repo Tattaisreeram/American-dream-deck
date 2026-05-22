@@ -69,6 +69,15 @@ const ACCENT = SLIDE_COLORS.events;
 export default function EventsSlide() {
   return (
     <div className="slide-wrapper-scroll bg-[#050505] flex flex-col">
+      {/* Photo background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/event.jpg')" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(135deg, rgba(6,6,2,0.88) 0%, rgba(8,8,8,0.92) 100%)" }}
+      />
       {/* Subtle background gradients */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_80%_at_100%_0%,rgba(46,204,113,0.04),transparent)] pointer-events-none" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_0%_100%,rgba(201,168,76,0.03),transparent)] pointer-events-none" />

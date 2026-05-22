@@ -59,6 +59,15 @@ const ACCENT = SLIDE_COLORS.dining;
 export default function DiningSlide() {
   return (
     <div className="slide-wrapper-scroll bg-[#060602] flex flex-col">
+      {/* Photo background */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('/food.jpg')" }}
+      />
+      <div
+        className="absolute inset-0"
+        style={{ background: "linear-gradient(135deg, rgba(6,6,2,0.88) 0%, rgba(8,8,8,0.92) 100%)" }}
+      />
       {/* Background */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_100%_50%,rgba(232,144,74,0.05),transparent)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_100%,rgba(201,168,76,0.04),transparent)]" />
