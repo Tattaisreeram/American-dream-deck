@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { ArrowRight, Snowflake, Waves, Star, Fish, Ticket, Zap } from "lucide-react";
-import { SLIDE_COLORS } from "@/lib/theme";
 import { EASE_OUT } from "@/lib/motion";
+import { SLIDE_COLORS } from "@/lib/theme";
+import { motion } from "framer-motion";
+import { ArrowRight, Fish, Snowflake, Star, Ticket, Waves, Zap } from "lucide-react";
 
 /*
   ATTRACTION PHOTOS — drop these into /public/ to activate:
